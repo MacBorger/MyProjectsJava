@@ -1,5 +1,4 @@
 /**
-
 'Project: "Java GUI Assignment"
 'Programmer: "David (Mac) Bailey"
 'Company Info: "dmbailey@mymail.csmd.edu"
@@ -20,5 +19,85 @@
 '  DO NOT HAVE YOUR CODE OR SCREENSHOT EXTEND BEYOND THE SCALE
 0........1.........2.........3.........4.........5.........6.........7.........8
 12345678901234567890123456789012345678901234567890123456789012345678901234567890
-
 */
+
+package mainJavaGUI_01;
+
+import java.awt.Button;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+
+public class JavaGUI_01 {
+
+	public static void main(String[] args) {
+
+		JFrame programFrame = new JFrame();
+		programFrame.setSize(400, 250);
+		programFrame.setTitle("Cost Calculator");
+		programFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		programFrame.setLocationRelativeTo(null);
+		programFrame.setLayout(null);
+		
+		String[] dormName = 
+			{"Allen Hall", 
+			"Pike Hall", 
+			"Farthing Hall", 
+			"Univserity Suites"};
+		ArrayList<Integer> dormCost = new ArrayList<>();
+		dormCost.add(1500); // Allen Hall
+		dormCost.add(1600); // Pike Hall
+		dormCost.add(1200); // Farthing Hall
+		dormCost.add(1800); // Univserity Suites 
+		
+		String[] mealPlan = 
+			{"7 Meals Per Week", 
+			"14 Meals Per Week", 
+			"Unlimited Meals Per Week"};
+		ArrayList<Integer> mealCost = new ArrayList<>();
+		mealCost.add(560); // 7 Meals Per Week
+		mealCost.add(1095); // 14 Meals Per Week
+		mealCost.add(1500); // Unlimited Meals Per Week
+		
+		JComboBox<String> dormComboBox = new JComboBox<>(dormName);
+		JComboBox<String> mealComboBox = new JComboBox<>(mealPlan);
+		dormComboBox.setBounds(40, 50, 175, 25);
+		mealComboBox.setBounds(40, 100, 175, 25);
+		
+		Font displayFont = new Font("Arial", Font.PLAIN, 14);
+		dormComboBox.setFont(displayFont);
+		mealComboBox.setFont(displayFont);
+		
+		JLabel costLabel = new JLabel("Total Cost: $0");
+		costLabel.setBounds(40, 150, 200, 25);
+		costLabel.setFont(displayFont);
+		
+		Button calculateButton = new Button("Calculate Cost");
+		calculateButton.setBounds(240, 70, 110, 35);
+		calculateButton.setFont(displayFont);
+
+		calculateButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				int dormIndex = dormComboBox.getSelectedIndex();
+				int mealIndex = mealComboBox.getSelectedIndex();
+				int totalCost = dormCost.get(dormIndex) + mealCost.get(mealIndex);
+				
+				costLabel.setText("Total Cost: $" + totalCost);
+			}
+		});
+		
+		programFrame.add(dormComboBox);
+		programFrame.add(mealComboBox);
+		programFrame.add(calculateButton);
+		programFrame.add(costLabel);
+		programFrame.setVisible(true);
+		
+	}
+}
