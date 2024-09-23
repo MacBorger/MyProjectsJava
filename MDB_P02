@@ -20,3 +20,184 @@
 0........1.........2.........3.........4.........5.........6.........7.........8
 12345678901234567890123456789012345678901234567890123456789012345678901234567890
 */
+
+package mainJavaGUI_02;
+
+import java.awt.Button;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+
+public class JavaGUI_02 {
+
+	public static void main(String[] args) {
+		
+		JFrame programFrame = new JFrame();
+		programFrame.setSize(460, 460);
+		programFrame.setTitle("Expense Calculator");
+		programFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		programFrame.setLocationRelativeTo(null);
+		programFrame.setLayout(null);
+		
+		Font displayFont = new Font("Arial", Font.PLAIN, 14);
+		
+		JLabel dayLabel = new JLabel("Number of Days:");
+		dayLabel.setBounds(40, 20, 150, 25);
+		dayLabel.setFont(displayFont);
+		JTextField dayField = new JTextField();
+		dayField.setBounds(200, 20, 170, 25);
+		
+		JLabel airfareLabel = new JLabel("Airfare Fees:");
+		airfareLabel.setBounds(40, 60, 150, 25);
+		airfareLabel.setFont(displayFont);
+		JTextField airfareField = new JTextField();
+		airfareField.setBounds(200, 60, 170, 25);
+		
+		JLabel rentalLabel = new JLabel("Rental Fees:");
+		rentalLabel.setBounds(40, 100, 150, 25);
+		rentalLabel.setFont(displayFont);
+		JTextField rentalField = new JTextField();
+		rentalField.setBounds(200, 100, 170, 25);
+		
+		JLabel milesLabel = new JLabel("Miles Driven:");
+		milesLabel.setBounds(40, 140, 150, 25);
+		milesLabel.setFont(displayFont);
+		JTextField milesField = new JTextField();
+		milesField.setBounds(200, 140, 170, 25);
+		
+		JLabel parkingLabel = new JLabel("Parking Fees:");
+		parkingLabel.setBounds(40, 180, 150, 25);
+		parkingLabel.setFont(displayFont);
+		JTextField parkingField = new JTextField();
+		parkingField.setBounds(200, 180, 170, 25);
+		
+		JLabel taxiLabel = new JLabel("Taxi Fees:");
+		taxiLabel.setBounds(40, 220, 150, 25);
+		taxiLabel.setFont(displayFont);
+		JTextField taxiField = new JTextField();
+		taxiField.setBounds(200, 220, 170, 25);
+		
+		JLabel regLabel = new JLabel("Registration Fees:");
+		regLabel.setBounds(40, 260, 150, 25);
+		regLabel.setFont(displayFont);
+		JTextField regField = new JTextField();
+		regField.setBounds(200, 260, 170, 25);
+		
+		JLabel hotelLabel = new JLabel("Hotel Per Night:");
+		hotelLabel.setBounds(40, 300, 150, 25);
+		hotelLabel.setFont(displayFont);
+		JTextField hotelField = new JTextField();
+		hotelField.setBounds(200, 300, 170, 25);
+		
+		Button calculateButton = new Button("Calculate Cost");
+		calculateButton.setBounds(40, 355, 110, 35);
+		calculateButton.setFont(displayFont);
+		
+		JLabel totalLabel = new JLabel("Total Expenses: $0");
+        totalLabel.setBounds(200, 330, 300, 25);
+        totalLabel.setFont(displayFont);
+        
+		JLabel allowedLabel = new JLabel("Allowed Expenses: $0");
+        allowedLabel.setBounds(200, 350, 300, 25);
+        allowedLabel.setFont(displayFont);
+		
+        JLabel owedLabel = new JLabel("Amount Owed (If Any): $0");
+        owedLabel.setBounds(200, 370, 300, 25);
+        owedLabel.setFont(displayFont);
+        
+        JLabel savedLabel = new JLabel("Amount Saved (If Any): $0");
+        savedLabel.setBounds(200, 390, 300, 25);
+        savedLabel.setFont(displayFont);
+        
+        calculateButton.addActionListener( new ActionListener() {
+        	@Override
+        	public void actionPerformed(ActionEvent e) {
+        		try {
+        			int numOfDays = Integer.parseInt(dayField.getText());
+        			double airfareFees = Double.parseDouble(airfareField.getText());
+        			double rentalFees = Double.parseDouble(rentalField.getText());
+        			int milesDriven = Integer.parseInt(milesField.getText());
+        			double parkingFees = Double.parseDouble(parkingField.getText());
+        			double taxiFees = Double.parseDouble(taxiField.getText());
+        			double regFees = Double.parseDouble(regField.getText());
+        			double hotelFees = Double.parseDouble(hotelField.getText());
+        			
+        			final double mealRate = 37.0;
+        			final double parkingRate = 10.0;
+        			final double taxiRate = 20.0;
+        			final double hotelRate = 95.40;
+        			final double mileRate = 0.27;
+        			
+        			double totalExpenses = 
+        					airfareFees +
+        					rentalFees + 
+        					parkingFees +
+        					taxiFees +
+        					regFees +
+        					(milesDriven * mileRate) +
+        					(numOfDays * hotelFees) +
+        					(numOfDays * mealRate);
+        			
+        			double allowableMeals = numOfDays * mealRate;
+        			double allowableParking = Math.min(parkingFees, numOfDays * parkingRate);
+        			double allowableTaxi = Math.min(taxiFees, numOfDays * taxiRate);
+        			double allowableHotel = numOfDays * hotelRate;
+        			double allowableMiles = milesDriven * mileRate;
+        			
+        			double totalAllowable = 
+        					airfareFees +
+        					rentalFees +
+        					regFees +
+        					allowableMeals +
+        					allowableParking +
+        					allowableTaxi +
+        					allowableHotel + 
+        					allowableMiles;
+        		
+        			totalLabel.setText(String.format("Total Expenses: $%.2f", totalExpenses));
+        			allowedLabel.setText(String.format("Allowed Expenses: $%.2f", totalAllowable));
+        			
+        			if (totalExpenses > totalAllowable) {
+        				owedLabel.setText(String.format("Amount Owed (If Any): $%.2f", totalExpenses - totalAllowable));
+        			} else if (totalAllowable > totalExpenses) {
+        				savedLabel.setText(String.format("Amount Saved (If Any): $%.2f", totalAllowable - totalExpenses));
+        			}
+        			
+        		} catch(NumberFormatException ex) {
+        			totalLabel.setText("Total Expenses: Invalid Input");
+        			allowedLabel.setText("Allowed Expenses: Invalid Input");
+        			owedLabel.setText("Amount Owed (If Any): Invalid Input");
+        			savedLabel.setText("Amount Saved (If Any): Invald Input");
+        		}
+        		
+        	}
+        });
+        
+		programFrame.add(dayLabel);
+		programFrame.add(dayField);
+		programFrame.add(airfareLabel);
+		programFrame.add(airfareField);
+		programFrame.add(rentalLabel);
+		programFrame.add(rentalField);
+		programFrame.add(milesLabel);
+		programFrame.add(milesField);
+		programFrame.add(parkingLabel);
+		programFrame.add(parkingField);
+		programFrame.add(taxiLabel);
+		programFrame.add(taxiField);
+		programFrame.add(regLabel);
+		programFrame.add(regField);
+		programFrame.add(hotelLabel);
+		programFrame.add(hotelField);
+		programFrame.add(calculateButton);
+		programFrame.add(totalLabel);
+		programFrame.add(allowedLabel);
+		programFrame.add(owedLabel);
+		programFrame.add(savedLabel);
+		programFrame.setVisible(true);
+	}
+}
