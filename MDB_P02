@@ -98,20 +98,20 @@ public class JavaGUI_02 {
 		calculateButton.setFont(displayFont);
 		
 		JLabel totalLabel = new JLabel("Total Expenses: $0");
-        totalLabel.setBounds(200, 330, 300, 25);
-        totalLabel.setFont(displayFont);
+       		totalLabel.setBounds(200, 330, 300, 25);
+        	totalLabel.setFont(displayFont);
         
 		JLabel allowedLabel = new JLabel("Allowed Expenses: $0");
-        allowedLabel.setBounds(200, 350, 300, 25);
-        allowedLabel.setFont(displayFont);
+        	allowedLabel.setBounds(200, 350, 300, 25);
+        	allowedLabel.setFont(displayFont);
 		
-        JLabel owedLabel = new JLabel("Amount Owed (If Any): $0");
-        owedLabel.setBounds(200, 370, 300, 25);
-        owedLabel.setFont(displayFont);
+        	JLabel owedLabel = new JLabel("Amount Owed (If Any): $0");
+        	owedLabel.setBounds(200, 370, 300, 25);
+        	owedLabel.setFont(displayFont);
         
-        JLabel savedLabel = new JLabel("Amount Saved (If Any): $0");
-        savedLabel.setBounds(200, 390, 300, 25);
-        savedLabel.setFont(displayFont);
+        	JLabel savedLabel = new JLabel("Amount Saved (If Any): $0");
+        	savedLabel.setBounds(200, 390, 300, 25);
+        	savedLabel.setFont(displayFont);
         
         calculateButton.addActionListener( new ActionListener() {
         	@Override
