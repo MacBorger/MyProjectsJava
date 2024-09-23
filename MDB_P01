@@ -38,7 +38,7 @@ public class JavaGUI_01 {
 	public static void main(String[] args) {
 
 		JFrame programFrame = new JFrame();
-		programFrame.setSize(400, 250);
+		programFrame.setSize(420, 220);
 		programFrame.setTitle("Cost Calculator");
 		programFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		programFrame.setLocationRelativeTo(null);
@@ -66,19 +66,27 @@ public class JavaGUI_01 {
 		
 		JComboBox<String> dormComboBox = new JComboBox<>(dormName);
 		JComboBox<String> mealComboBox = new JComboBox<>(mealPlan);
-		dormComboBox.setBounds(40, 50, 175, 25);
-		mealComboBox.setBounds(40, 100, 175, 25);
+		dormComboBox.setBounds(190, 30, 175, 25);
+		mealComboBox.setBounds(190, 70, 175, 25);
 		
 		Font displayFont = new Font("Arial", Font.PLAIN, 14);
 		dormComboBox.setFont(displayFont);
 		mealComboBox.setFont(displayFont);
 		
+		JLabel dormLabel = new JLabel("Select Dorm:");
+		dormLabel.setBounds(40, 30, 175, 25);
+		dormLabel.setFont(displayFont);
+		
+		JLabel mealLabel = new JLabel("Select Plan:");
+		mealLabel.setBounds(40, 70, 175, 25);
+		mealLabel.setFont(displayFont);
+		
 		JLabel costLabel = new JLabel("Total Cost: $0");
-		costLabel.setBounds(40, 150, 200, 25);
+		costLabel.setBounds(190, 125, 200, 25);
 		costLabel.setFont(displayFont);
 		
 		Button calculateButton = new Button("Calculate Cost");
-		calculateButton.setBounds(240, 70, 110, 35);
+		calculateButton.setBounds(40, 120, 110, 35);
 		calculateButton.setFont(displayFont);
 
 		calculateButton.addActionListener(new ActionListener() {
@@ -97,6 +105,8 @@ public class JavaGUI_01 {
 		programFrame.add(mealComboBox);
 		programFrame.add(calculateButton);
 		programFrame.add(costLabel);
+		programFrame.add(dormLabel);
+		programFrame.add(mealLabel);
 		programFrame.setVisible(true);
 		
 	}
