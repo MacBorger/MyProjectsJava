@@ -108,6 +108,5 @@ public class JavaGUI_01 {
 		programFrame.add(dormLabel);
 		programFrame.add(mealLabel);
 		programFrame.setVisible(true);
-		
 	}
 }
