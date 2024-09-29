@@ -20,3 +20,92 @@
 0........1.........2.........3.........4.........5.........6.........7.........8
 12345678901234567890123456789012345678901234567890123456789012345678901234567890
 */
+
+package application;
+
+import javafx.application.Application;
+import javafx.stage.Stage;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.layout.VBox;
+import javafx.geometry.Insets;
+
+public class JavaFX_02 extends Application {
+
+    private static final double generalFee = 895.0;
+    private static final double studentFee = 495.0;
+    private static final double dinnerFee = 30.0;
+    private static final double commerceFee = 295.0;
+    private static final double websiteFee = 295.0;
+    private static final double javaFee = 395.0;
+    private static final double securityFee = 395.0;
+
+    @Override
+    public void start(Stage primaryStage) {
+    	
+        ComboBox<String> registrationTypeCombo = new ComboBox<>();
+        
+        registrationTypeCombo.getItems().addAll("General Registration", "Student Registration");
+        registrationTypeCombo.setValue("General Registration");
+
+        CheckBox dinnerCheckBox = new CheckBox("Opening Night Dinner and Keynote Speech ($30)");
+        CheckBox workshopEcommerceCheckBox = new CheckBox("Introduction to E-commerce ($295)");
+        CheckBox workshopFutureWebCheckBox = new CheckBox("The Future of the Web ($295)");
+        CheckBox workshopAdvJavaCheckBox = new CheckBox("Advanced Java Programming ($395)");
+        CheckBox workshopNetSecurityCheckBox = new CheckBox("Network Security ($395)");
+
+        Label totalCostLabel = new Label("Total Cost: $0.00");
+        Button calculateButton = new Button("Calculate Total");
+
+        calculateButton.setOnAction(event -> {
+            double totalCost = 0;
+
+            if (registrationTypeCombo.getValue().equals("General Registration")) {
+                totalCost += generalFee;
+            } else if (registrationTypeCombo.getValue().equals("Student Registration")) {
+                totalCost += studentFee;
+            }
+
+            if (dinnerCheckBox.isSelected()) {
+                totalCost += dinnerFee;
+            }
+
+            if (workshopEcommerceCheckBox.isSelected()) {
+                totalCost += commerceFee;
+            }
+            if (workshopFutureWebCheckBox.isSelected()) {
+                totalCost += websiteFee;
+            }
+            if (workshopAdvJavaCheckBox.isSelected()) {
+                totalCost += javaFee;
+            }
+            if (workshopNetSecurityCheckBox.isSelected()) {
+                totalCost += securityFee;
+            }
+
+            totalCostLabel.setText(String.format("Total Cost: $%.2f", totalCost));
+        });
+
+        VBox newBox = new VBox(10);
+        newBox.setPadding(new Insets(20));
+        newBox.getChildren().addAll(new Label("Select Registration Type:"),
+                registrationTypeCombo,
+                dinnerCheckBox,
+                new Label("Select Preconference Workshops:"),
+                workshopEcommerceCheckBox,
+                workshopFutureWebCheckBox,
+                workshopAdvJavaCheckBox,
+                workshopNetSecurityCheckBox,
+                calculateButton,
+                totalCostLabel);
+
+        Scene displayScene = new Scene(newBox, 400, 325);
+        primaryStage.setTitle("Registration Calculator");
+        primaryStage.setScene(displayScene);
+        primaryStage.show();
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+}
