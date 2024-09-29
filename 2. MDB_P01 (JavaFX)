@@ -48,13 +48,13 @@ public class JavaFX_01 extends Application {
             
             Button calculateButton = new Button("Calculate Total");
             
-            Label tipLabel = new Label("With Tip (18%):");
-            Label taxLabel = new Label("With Tax (7%):");
-            Label totalLabel = new Label("Total Cost:");
+            Label tipLabel = new Label("With Tip (18%): ");
+            Label taxLabel = new Label("With Tax (7%): ");
+            Label totalLabel = new Label("Total Cost: ");
             
-            Label tipOutput = new Label();
-            Label taxOutput = new Label();
-            Label totalOutput = new Label();
+            Label tipOutput = new Label("$0.00");
+            Label taxOutput = new Label("$0.00");
+            Label totalOutput = new Label("$0.00");
             
             displayGrid.add(foodChargeLabel, 0, 0);
             displayGrid.add(foodChargeInput, 1, 0);
@@ -98,4 +98,5 @@ public class JavaFX_01 extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+}
 }
