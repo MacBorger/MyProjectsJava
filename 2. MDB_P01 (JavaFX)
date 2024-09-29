@@ -46,7 +46,7 @@ public class JavaFX_01 extends Application {
             Label foodChargeLabel = new Label("Food Charge:");
             TextField foodChargeInput = new TextField();
             
-            Button calculateButton = new Button("Calculate");
+            Button calculateButton = new Button("Calculate Total");
             
             Label tipLabel = new Label("With Tip (18%):");
             Label taxLabel = new Label("With Tax (7%):");
