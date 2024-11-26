@@ -1,0 +1,79 @@
+import java.util.LinkedList;
+
+public class Main {
+    public static void main(String[] args) throws InterruptedException {
+        final ProducerClass producerClass = new ProducerClass();
+
+        // Create Producer Thread
+        Thread threadOne = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    producerClass.produceNumber(producerClass);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        // Create Consumer Thread
+        Thread threadTwo = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    producerClass.consumeNumber(producerClass);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        threadOne.start();
+        threadTwo.start();
+        threadOne.join();
+        threadTwo.join();
+    }
+}
+
+class ProducerClass {
+    LinkedList<Integer> linkedList = new LinkedList<>();
+    int listCapacity = 5;
+
+    // Producer Method
+    public void produceNumber(ProducerClass producerClass) throws InterruptedException {
+        int listValue = 0;
+
+        while (true) {
+            synchronized (producerClass) {
+                while (linkedList.size() == listCapacity) {
+                    producerClass.wait(); 
+                }
+
+                System.out.println("Producer Thread Produced a... " + listValue);
+                linkedList.add(listValue++); 
+
+                producerClass.notify();
+
+                Thread.sleep(1000);
+            }
+        }
+    }
+
+    // Consumer Method
+    public void consumeNumber(ProducerClass producerClass) throws InterruptedException {
+        while (true) {
+            synchronized (producerClass) {
+                while (linkedList.size() == 0) {
+                    producerClass.wait();
+                }
+
+                int removedValue = linkedList.removeFirst();
+                System.out.println("Consumer Thread Consumed a... " + removedValue);
+
+                producerClass.notify();
+
+                Thread.sleep(1000);
+            }
+        }
+    }
+}
